@@ -23,8 +23,8 @@ public class PA8Main extends Application {
     private final static int RECT_SIZE = 20;
 
     // temporary constants for starter code
-    private final static int SIZE_ACROSS = 100;
-    private final static int SIZE_DOWN = 200;
+    private static int SIZE_ACROSS = 100;
+    private static int SIZE_DOWN = 200;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,14 +34,13 @@ public class PA8Main extends Application {
     public void start(Stage primaryStage) {
 
         // PA8 TODO: change SIZE_ACROSS to something like
-        // num_cols * plot_size * CELLSIZE and SIZE_DOWN
-        // to something like num_rows * plot_size * CELLSIZE
+        // num_cols * CELLSIZE and SIZE_DOWN to num_rows * CELLSIZE
         TextArea command = new TextArea();
         GraphicsContext gc = setupStage(primaryStage, SIZE_ACROSS, SIZE_DOWN,
                 command);
 
         primaryStage.show();
-        simulateGarden(gc, command);
+        simulateEcosystem(gc, command);
     }
 
     /**
@@ -50,11 +49,11 @@ public class PA8Main extends Application {
      * method more succinct so it is less than 30 lines.
      * 
      * @param gc
-     *            GraphicsContext for drawing garden to.
+     *            GraphicsContext for drawing ecosystem to.
      * @param command
      *            Reference to text area to show simulation commands.
      */
-    private void simulateGarden(GraphicsContext gc, TextArea command) {
+    private void simulateEcosystem(GraphicsContext gc, TextArea command) {
         //------- Placeholder code (REMOVE once you have the above code)
         // This count object is taking the place of the Scanner.
         // Below you will want to pass a reference to your Scanner into
@@ -73,7 +72,7 @@ public class PA8Main extends Application {
         // A lambda function is an unnamed function.  Here, the
         // unnamed function takes a parameter it names "e"
         // and then parses the next command out of the file,
-        // applies the command to the Garden, and then tells the
+        // applies the command to the Ecosystem, and then tells the
         // wait thread to pause for the delay again.
         PauseTransition wait = new PauseTransition(Duration.seconds(delay));
         wait.setOnFinished((e) -> {
@@ -81,8 +80,8 @@ public class PA8Main extends Application {
             //==== Code that should be executed after each delay goes in here.
             // read in the next command
             // if there was a command left in the file:
-            // * apply that command to the garden
-            // * draw to the canvas by calling your gardenDraw(gc)
+            // * apply that command to the ecosystem
+            // * draw to the canvas by calling your ecosystemDraw(gc)
             // * append the command to the text field, command.appendText(...);
             // * call wait.playFromStart();
             // else:
@@ -128,7 +127,7 @@ public class PA8Main extends Application {
         BorderPane p = new BorderPane();
 
         // Canvas(pixels across, pixels down)
-        // Note this is opposite order of parameters of the Garden in PA6.
+        // Note this is opposite order of parameters of the Ecosystem in PA6.
         Canvas canvas = new Canvas(SIZE_ACROSS, SIZE_DOWN);
 
         // Command TextArea will hold the commands from the file
@@ -140,7 +139,7 @@ public class PA8Main extends Application {
         p.setBottom(command);
 
         // Title the stage and place the pane into the scene into the stage.
-        primaryStage.setTitle("Garden");
+        primaryStage.setTitle("Ecosystem");
         primaryStage.setScene(new Scene(p));
 
         return canvas.getGraphicsContext2D();
